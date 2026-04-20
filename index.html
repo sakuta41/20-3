@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para ti 🙄🌹</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a0f14;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            text-align: center;
+        }
+
+        #start-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .btn {
+            background-color: #e63946;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.4);
+            transition: transform 0.2s, background-color 0.2s;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            background-color: #d62828;
+        }
+
+        .btn-audio {
+            background-color: #457b9d;
+            font-size: 1rem;
+            padding: 10px 20px;
+        }
+
+        #main-content {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 2s ease-in-out;
+            padding: 20px;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .bouquet {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            max-width: 350px;
+        }
+
+        .rose {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .message-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #ffb5a7;
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="start-screen">
+        <h2>Tengo algo para ti... 👀</h2>
+        <button class="btn" onclick="iniciarSorpresa()">Toca aquí si no eres cobarde</button>
+    </div>
+
+    <div id="main-content">
+        <h1>Tus 20 Rosas 🌹</h1>
+        <div class="bouquet" id="bouquet">
+            </div>
+        
+        <div class="message-box">
+            <p><strong>¡Feliz 20 de Abril!</strong></p>
+            <p>Aquí están tus 20 rosas para que no te quedes fuera del trend y luego no estés de dramática jesjejs porque no te regaron nada :) 🙄</p>
+            <p>Ya hablando en serio: ¡Mucho ánimo con todo niña! Eres una gran chica y sé que vas a lograr todo lo que te propongas. Échale ganas a la vida. ✨</p>
+        </div>
+
+        <button id="audio-control" class="btn btn-audio" onclick="toggleAudio()">Pausar Música ⏸️</button>
+    </div>
+
+    <audio id="musica-fondo" loop>
+        <source src="20 rosas.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const audio = document.getElementById('musica-fondo');
+        const btnAudio = document.getElementById('audio-control');
+
+        function iniciarSorpresa() {
+            document.getElementById('start-screen').style.display = 'none';
+            document.getElementById('main-content').style.display = 'flex';
+
+            const bouquet = document.getElementById('bouquet');
+            for (let i = 0; i < 20; i++) {
+                const rose = document.createElement('div');
+                rose.className = 'rose';
+                rose.innerText = '🌹';
+                rose.style.animationDelay = (Math.random() * 2) + 's';
+                bouquet.appendChild(rose);
+            }
+
+            audio.play().catch(e => console.log("Audio bloqueado"));
+        }
+
+        function toggleAudio() {
+            if (audio.paused) {
+                audio.play();
+                btnAudio.innerText = "Pausar Música ⏸️";
+            } else {
+                audio.pause();
+                btnAudio.innerText = "Poner Música ▶️";
+            }
+        }
+    </script>
+</body>
+</html>
